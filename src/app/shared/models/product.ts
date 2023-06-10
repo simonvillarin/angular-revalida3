@@ -1,4 +1,5 @@
 export interface Product {
+    prodId?: number;
     productName: string;
     brand: string;
     category: string;

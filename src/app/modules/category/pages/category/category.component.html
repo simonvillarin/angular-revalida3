@@ -38,9 +38,11 @@
     </div>
     <div *ngFor="let product of filteredProducts">
       <app-card
-          [img]="product?.img || ''"
-          [productName]="product?.productName || ''"
-          [price]="(product?.price || 0).toString()"
+        [prodId]="product?.prodId || 0"
+        [img]="product?.img || ''"
+        [productName]="product?.productName || ''"
+        [price]="(product?.price || 0).toString()"
+        [description]="product?.description ?? []"
       ></app-card>
     </div>
   </div>

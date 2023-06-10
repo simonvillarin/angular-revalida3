@@ -9,9 +9,64 @@
       <button class="add" (click)="addToCartProduct()">
         <span><i class="bi bi-cart2"></i></span> ADD TO CART
       </button>
-      <button class="view" title="View">
+      <button class="view" title="Quick View" data-bs-toggle="modal" data-bs-target="#viewPopup">
         <i class="bi bi-eye"></i>
       </button>
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div 
+  class="modal fade" 
+  id="viewPopup" 
+  tabindex="-1" 
+  aria-labelledby="viewPopupLabel" 
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 " >
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="row">
+          <div class="col-sm-5 p-0">
+            <img src="{{ img }}"/>
+          </div>
+          <div class="col-sm-7">
+            <h2>{{ productName }}</h2>
+            <ul class="list" *ngFor="let desc of description">
+              <li class="text-truncate">{{ desc }}</li>
+            </ul>
+            <h1>₱{{ price | number:'1.2-2' }}</h1>
+            <div class="input-group">
+              <button 
+                  class="btn btn-outline-secondary" 
+                  type="button" (click)="decrease()"
+              >-</button>
+              <input 
+                  class="form-control" 
+                  [readonly]="true"
+                  [value]="quantity"
+              >
+              <button 
+                  class="btn btn-outline-secondary" 
+                  type="button" 
+                  (click)="increase()"
+              >+</button>
+            </div>
+            <button 
+              class="add mb-3 ps-5 pe-5 mt-3" 
+              (click)="addToCartProduct()" 
+              data-bs-dismiss="modal"
+            >
+              <span><i class="bi bi-cart2"></i></span> ADD TO CART
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
