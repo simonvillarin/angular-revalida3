@@ -1,39 +1,68 @@
 .container {
-    background-color: rgb(233, 253, 233);
-    max-width: 100%;
-    height: 900px;
+  min-height: calc(100vh - 4rem);
 }
 
-.tabCont {
-    background-color: white;
-    padding: 30px 0px 0px 0px;
-    margin: 0px;
+.title {
+  margin: 2rem 0 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 300;
 }
 
-.tabCont h1 {
-    font-weight: 400;
-    color: #484a47;
-    padding-left: 35px;
-    font-size: xx-large;
+.orders-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
 }
 
-.nav-tabs li {
-    display: inline-block;
-    cursor: pointer;
-    margin: 0px;
-    margin-left: 20px;
+.orders-container > div {
+  margin-bottom: 0.5rem;
 }
-  
-.nav-tabs li a {
-    color: #23a51c;
-    font-size: medium;
-    text-decoration: none;
-    margin: 0px;
-    border: none;
+
+.total-container {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 2rem;
+  border-bottom: 1px solid rgb(220, 220, 220);
 }
-  
-.nav-tabs li a.active{
-    background-color:  transparent;
-    border: none;
-    color: #0d0c0c;
+
+.total-container > div {
+  display: flex;
+  gap: 3rem;
+}
+
+.total-price {
+  font-weight: 400;
+}
+
+.total-qty {
+  font-weight: 400;
+}
+
+.status {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+button {
+  padding: 0.25rem 0.75rem;
+  background-color: goldenrod;
+  color: #fff;
+  border-radius: 100vmax;
+}
+
+@media screen and (min-width: 992px) {
+  .total-container {
+    justify-content: flex-end;
+  }
+
+  .total-price {
+    margin-right: 4rem;
+  }
+
+  .total-qty {
+    margin-right: 3rem;
+  }
 }
