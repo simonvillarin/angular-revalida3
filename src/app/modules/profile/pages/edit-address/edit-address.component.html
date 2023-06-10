@@ -7,15 +7,15 @@
                 type="text" 
                 class="form-control border-bottom" 
                 id="inputHouseNo" 
-                formControlName="houseNo"
+                formControlName="house"
                 required
             >
             <!-- Validation -->
             <div
                 class="validation"
-                *ngIf="houseNo?.invalid && (houseNo?.dirty || houseNo?.touched)"
+                *ngIf="house?.invalid && (house?.dirty || house?.touched)"
             >
-                <p *ngIf="houseNo?.errors?.['required']">
+                <p *ngIf="house?.errors?.['required']">
                     House number is required.
                 </p>
             </div>

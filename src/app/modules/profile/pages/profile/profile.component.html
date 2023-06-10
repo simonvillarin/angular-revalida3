@@ -1,34 +1,43 @@
 <div class="container">
     <div class="profileCont" [hidden]="!showProfileCont">
-        <h2 class="mb-4">Profile</h2>
-        <div class="row" *ngFor="let data of user">
+        <div class="row" *ngFor="let data of loggedInUser">
             <div class="col-md-4">
                 <label>Username</label>
                 <p>{{ data?.username }}</p>
             </div>
             <div class="col-md-4">
                 <label>Fullname</label>
-                <p>{{ data?.fname }} {{ data?.mname}} {{ data?.lname }}</p>
+                <p>{{ data?.firstName }} {{ data?.middleName}} {{ data?.lastName }}</p>
             </div>
             <div class="col-md-4">
                 <label>Email</label>
-                <p>{{ data?.email | emailMask }}</p>
+                <p>{{ data?.email ?? ''| emailMask }}</p>
             </div>
             <div class="col-md-4">
                 <label>Mobile no.</label>
-                <p>{{ data?.mobileNo | mobileMask}}</p>
+                <p>{{ data?.phoneNumber ?? '' | mobileMask}}</p>
             </div>
             <div class="col-md-4">
                 <label>Birthday</label>
-                <p>{{ data?.bday }}</p>
+                <p>{{ data?.birthdate }}</p>
             </div>
             <div class="col-md-4">
                 <label>List of Interest</label>
-                <div class="d-flex flex-wrap">
-                    <div class="col-3" *ngFor="let list of data?.listOfInterest">
-                        {{ list }}
-                    </div>
+                <div *ngFor="let list of data?.listOfInterest">
+                    <label>{{ list }},</label>
                 </div>
+                
+            </div>
+            <div class="col-md-5 cols">
+                <label>Address</label>
+                <p>
+                    {{ data?.house }}, 
+                    {{ data?.building }}, 
+                    {{ data?.street }},
+                    {{ data?.barangay }}, 
+                    {{ data?.city }},
+                    {{ data?.province }},
+                </p>
             </div>
         </div>
         <div class="btnCont">
@@ -39,6 +48,10 @@
 
     <div [hidden]="!showEditForm">
         <!-- Edit form content -->
-        <app-edit-profile (editProfileCancel)="cancel()"></app-edit-profile>
+        <app-edit-profile 
+            (editProfileCancel)="cancel()"
+            [userId]="userId" 
+            [loggedInUser]="loggedInUser"
+        ></app-edit-profile>
     </div>
 </div>

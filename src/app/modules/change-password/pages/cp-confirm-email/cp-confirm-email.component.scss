@@ -12,6 +12,7 @@
   
 .form-control:focus {
     box-shadow: inset 0px -10px 10px -10px rgba(198, 253, 211, 0.75);
+    border-radius: 0px;
 }
 
 .form-label {
@@ -34,4 +35,15 @@
     flex-direction: column;
     gap: 0.25rem;
     color: red;
+}
+
+.otpBtn{
+    // border-radius: 5px;
+    border: none;
+    color: green;
+    padding: 5px;
+}
+
+.input-group input:focus {
+    box-shadow: none;
 }

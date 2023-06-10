@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/modules/login/services/login.service';
+import { User } from 'src/app/shared/models/user';
+import { UserService } from '../../user/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -11,27 +11,32 @@ import { LoginService } from 'src/app/modules/login/services/login.service';
 })
 export class ProfileComponent implements OnInit{
 
-  user: any[] = [
-    { 
-      username: "chanchan22",
-      fname: "Chanyeol",
-      mname: "Oh",
-      lname: "Park",
-      email: "parkchan@gmail.com",
-      mobileNo: "09123245231",
-      bday: "1992-11-23",
-      listOfInterest: [
-        "painting",
-        "dancing",
-        "singing",
-      ],
-    }
-  ]
+  loggedInUser: User[] = [];
+  resetloggedInUserData: User[] = [];
+  userId: number = 0;
+  sub: Subscription | undefined
 
-  constructor(private router: Router) {}
-  
+  constructor(private router: Router, private userService: UserService) {}
+
   ngOnInit(): void {
-      
+    this.getUser();
+  }
+
+  getUser() {
+    const userLocalStorage = localStorage.getItem('user');
+    if (userLocalStorage) {
+      const user = JSON.parse(userLocalStorage);
+      this.userId = user.userId;
+    }
+
+    this.sub = this.userService.getUserById(this.userId).subscribe((user) => {
+      this.loggedInUser.push(user);
+      console.log(this.loggedInUser);
+    })
+  }
+
+  refreshUserProfile() {
+    this.sub?.unsubscribe;
   }
 
   // Edit div

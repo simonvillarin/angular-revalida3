@@ -1,15 +1,15 @@
 <div class="container">
     <div class="addressCont" [hidden]="!showAddressCont">
         <h2 class="mb-4">Address</h2>
-        <div class="row" *ngFor="let data of user">
+        <div class="row" *ngFor="let data of loggedInUser">
             <div class="col-md-3 cols">
                 <label>Fullname</label>
-                <p>{{ data?.fname }} {{ data?.mname}} {{ data?.lname }}</p>
+                <p>{{ data?.firstName }} {{ data?.middleName}} {{ data?.lastName }}</p>
             </div>
             <div class="col-md-5 cols">
                 <label>Address</label>
                 <p>
-                    {{ data?.houseNo }}, 
+                    {{ data?.house }}, 
                     {{ data?.building }}, 
                     {{ data?.street }},
                     {{ data?.barangay }}, 
@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-4 cols">
                 <label>Mobile no.</label>
-                <p>{{ data?.mobileNo }}</p>
+                <p>{{ data?.phoneNumber }}</p>
             </div>
         </div>
         <div class="btnCont">
@@ -28,6 +28,10 @@
     </div>
 
     <div class="editForm" [hidden]="!showEditForm">
-        <app-edit-address (editAddressCancel)="cancel()"></app-edit-address>
+        <app-edit-address 
+            (editAddressCancel)="cancel()"
+            [userId]="userId" 
+            [loggedInUser]="loggedInUser"
+        ></app-edit-address>
     </div>
 </div>

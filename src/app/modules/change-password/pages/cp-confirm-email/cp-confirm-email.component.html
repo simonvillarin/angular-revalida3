@@ -5,14 +5,22 @@
         <form class="row g-3" [formGroup]="changePassForm" (ngSubmit)="onSubmit()" name="changePassForm">
             <div class="col-12">
                 <label for="inputEmail" class="form-label">Email*</label>
-                <input 
-                    type="text" 
-                    class="form-control border-bottom" 
-                    id="inputEmail"
-                    placeholder="enter email"
-                    formControlName="email"
-                    required
-                >
+                <div class="input-group mb-3 p-2">
+                    <input 
+                        type="text" 
+                        class="form-control border-bottom" 
+                        id="inputEmail"
+                        placeholder="enter email"
+                        formControlName="email"
+                        aria-describedby="button-addon2"
+                        required
+                    >
+                    <button 
+                        class="btn otpBtn border-bottom" 
+                        type="button" id="button-addon2"
+                        
+                    >send</button>
+                </div>
                 <!-- Validation -->
                 <div
                     class="validation"
