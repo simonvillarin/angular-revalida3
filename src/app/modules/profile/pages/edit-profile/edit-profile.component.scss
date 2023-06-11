@@ -40,9 +40,24 @@
     color: green;
 }
 
+.editForm .row .col-md-12 {
+    padding: 0px 20px 0px 20px;
+    font-size: small;
+    color: green;
+}
+
 .validation {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
     color: red;
+}
+
+.alert {
+    border-radius: 0px;
+  }
+  
+.alert i {
+    color: rgb(218, 43, 43);
+    font-size: larger;
 }

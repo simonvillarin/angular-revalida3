@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output,  } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { 
   mobileNumberContainLetters, 
   mobileNumberIsValid } 
@@ -38,7 +36,7 @@ export class EditProfileComponent implements OnInit{
         mobileNumberIsValid(),
       ]],
       birthdate: ['', Validators.required],
-      listOfInterest: fb.array([new FormControl])
+      listOfInterest: fb.array([new FormControl('', Validators.required)])
     });
     this.listOfInterestArray = this.editForm.controls['listOfInterest'] as FormArray;
   }
@@ -83,15 +81,21 @@ export class EditProfileComponent implements OnInit{
           email: user.email,
           phoneNumber: user.phoneNumber,
           birthdate: user.birthdate,
-          listOfInterest: user.listOfInterest,
+          // listOfInterest: [],
         }
       );
-      user.listOfInterest.forEach((interest) => {
+      this.listOfInterestArray.clear();
+      
+      user.listOfInterest.forEach((interest: string) => {
         this.listOfInterestArray.push(new FormControl(interest));
+        
+        console.log("Interest:", interest)
+        console.log("List of Interest array: ", this.listOfInterestArray.value);
       });
     })
   }
 
+  errorMessage: string = '';
   onSubmit = () => {
     if (this.editForm.valid) {
       const updatedUserData: UserProfile = {
@@ -104,20 +108,22 @@ export class EditProfileComponent implements OnInit{
         birthdate: this.editForm.value.birthdate,
         listOfInterest: this.editForm.value.listOfInterest
       };
+      console.log("list of interest value in editform:",this.listOfInterest);
 
       this.loggedInUser.forEach((data) => {
         if (data.email === this.editForm.value.email || data.username === this.editForm.value.username) {
-          console.log("Email or username already exists");
+          this.errorMessage = "Email or username already exists";
           return;
         } else {
           alert('Profile successfully updated');
+          this.editForm.reset();
+          this.cancel();
         }
       });
       this.userService.updateUserProfile(this.userId, updatedUserData).subscribe((res) => {
         console.log(res);
       });
-      this.editForm.reset();
-      this.cancel();
+      
     }
   };
 

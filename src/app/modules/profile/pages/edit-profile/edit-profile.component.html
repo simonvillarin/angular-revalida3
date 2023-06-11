@@ -1,6 +1,11 @@
 <div class="editForm" >
     <h2 class="mb-4">Edit Profile</h2>
     <form class="row g-3" [formGroup]="editForm" (ngSubmit)="onSubmit()" name="editForm">
+        <div class="alert alert-danger border-0" role="alert" *ngIf="errorMessage !== ''">
+            <div>
+              <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
+            </div>
+        </div>
         <div class="col-md-4">
             <label for="inputFname" class="form-label">Firstname</label>
             <input 
@@ -137,21 +142,23 @@
                 <p *ngIf="birthdate?.errors?.['required']">Birthday is required.</p>
             </div>
         </div>
-        <!-- <div class="col-md-12">
+        <div class="col-md-12">
             <label class="form-label">List of Interest</label>
-            <div class="row">
-                <div class="input-group col-4" *ngFor="let _ of listOfInterestArray.controls; index as i">
-                  <input formControlName="i" class="form-control"/>
+            <div formArrayName="listOfInterest">
+                <div class="d-flex flex-row">
+                    <div *ngFor="let control of listOfInterestArray.controls; let i = index" class="mb-3">
+                        <input [formControlName]="i" class="form-control text-center" placeholder="List:"/>
+                    </div>
                 </div>
-              </div> -->
+            </div>
             <!-- Validation -->
-            <!-- <div
+            <div
                 class="validation"
                 *ngIf="listOfInterest?.invalid && (listOfInterest?.dirty || listOfInterest?.touched)"
             >
                 <p *ngIf="listOfInterest?.errors?.['required']">List of interest is required.</p>
             </div>
-        </div> -->
+        </div>
         
         <div class="btnCont">
             <button type="submit" class="btn saveBtn">Save Changes</button>
