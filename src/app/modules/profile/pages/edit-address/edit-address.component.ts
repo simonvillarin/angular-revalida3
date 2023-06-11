@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../services/user.service';
 import { User } from 'src/app/shared/models/user';
 import { Subscription } from 'rxjs';
+import { UserAddress } from '../../models/user-address';
 
 @Component({
   selector: 'app-edit-address',
@@ -33,15 +34,6 @@ export class EditAddressComponent {
       city: ['', Validators.required],
       province: ['', Validators.required],
       zipcode: ['', Validators.required],
-      username: [''],
-      password: [''],
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-      email: [''],
-      phoneNumber: [''],
-      birthdate: [''],
-      listOfInterest: [''],
     });
   }
 
@@ -72,17 +64,9 @@ export class EditAddressComponent {
   }
 
   getUserData() {
-    this.userService.getUserById(this.userId).subscribe((user: User) => {
+    this.sub = this.userService.getUserById(this.userId).subscribe((user: UserAddress) => {
       this.editForm.patchValue(
         {
-          username: user.username,
-          firstName: user.firstName,
-          middleName: user.middleName,
-          lastName: user.lastName,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-          birthdate: user.birthdate,
-          listOfInterest: user.listOfInterest,
           house: user.house,
           building: user.building,
           street: user.street,
@@ -90,9 +74,6 @@ export class EditAddressComponent {
           city: user.city,
           province: user.province,
           zipcode: user.zipcode,
-          password: user.password,
-          role: user.role,
-          status: user.status
         }
       )
     })
@@ -100,41 +81,22 @@ export class EditAddressComponent {
 
   onSubmit = () => {
     if (this.editForm.valid) {
-      const updatedUserData: User = {
-        username: this.editForm.value.username,
-        firstName: this.editForm.value.firstName,
-        middleName: this.editForm.value.middleName,
-        lastName: this.editForm.value.lastName,
-        email: this.editForm.value.email,
-        phoneNumber: this.editForm.value.phoneNumber,
-        birthdate: this.editForm.value.birthdate,
-        listOfInterest: this.editForm.value.listOfInterest,
+      const updatedUserData: UserAddress = {
         house: this.editForm.value.house,
         building: this.editForm.value.building,
         street: this.editForm.value.street,
         barangay: this.editForm.value.barangay,
         city: this.editForm.value.city,
         province: this.editForm.value.province,
-        zipcode: this.editForm.value.zipcode,
-        password: this.editForm.value.password,
-        role: this.editForm.value.role,
-        status: this.editForm.value.status
+        zipcode: this.editForm.value.zipcode
       };
-
-      this.loggedInUser.forEach((data) => {
-        if (data.email === this.editForm.value.email || data.username === this.editForm.value.username) {
-          console.log("Email or username already exists");
-          return;
-        } else {
-          this.editForm.reset();
-          this.cancel();
-        }
-      });
       
-      this.userService.updateUser(this.userId, updatedUserData).subscribe((res) => {
+      this.userService.updateUserAddress(this.userId, updatedUserData).subscribe((res) => {
         console.log(res);
       });
-      this.editForm.reset();
+      alert('Profile successfully updated');
+      // this.editForm.reset();
+      this.getUserData();
       this.cancel();
     }
   };

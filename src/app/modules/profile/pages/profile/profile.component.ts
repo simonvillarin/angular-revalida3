@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -51,6 +51,12 @@ export class ProfileComponent implements OnInit{
   cancel() {
     this.showEditForm = false;
     this.showProfileCont = true;
+    this.loggedInUser=[];
+    this.sub?.unsubscribe;
+    this.sub = this.userService.getUserById(this.userId).subscribe((user) => {
+      this.loggedInUser.push(user);
+      console.log(this.loggedInUser);
+    })
   }
 
   navigateChangePassword() {
