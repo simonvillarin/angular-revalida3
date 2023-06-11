@@ -15,7 +15,7 @@ const routes: Routes = [
       import('./modules/main-page/main-page.module').then(
         (m) => m.MainPageModule
       ),
-    canActivate: [userExistsGuard],
+    // canActivate: [userExistsGuard],
   },
   {
     path: '',
