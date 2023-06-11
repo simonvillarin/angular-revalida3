@@ -143,11 +143,11 @@
             </div>
         </div>
         <div class="col-md-12">
-            <label class="form-label">List of Interest</label>
+            <label class="form-label">List of Interest (3)</label>
             <div formArrayName="listOfInterest">
                 <div class="d-flex flex-row">
-                    <div *ngFor="let control of listOfInterestArray.controls; let i = index" class="mb-3">
-                        <input [formControlName]="i" class="form-control text-center" placeholder="List:"/>
+                    <div *ngFor="let control of listOfInterestArray.controls; let i = index" class="col-sm-4 mb-3 me-3">
+                        <input [formControlName]="i" class="form-control text-center border-bottom"/>&nbsp;
                     </div>
                 </div>
             </div>
