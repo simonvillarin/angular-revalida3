@@ -160,7 +160,13 @@
                 "
               >
                 <div *ngIf="userForm.get('phoneNumber')?.hasError('required')">
-                  Phone number is Required
+                  Phone number is Required.
+                </div>
+                <div *ngIf="userForm.get('phoneNumber')?.hasError('mobileNoIsValid')">
+                  Phone number unvalid.
+                </div>
+                <div *ngIf="userForm.get('phoneNumber')?.hasError('mobileNoHasNoLetters')">
+                  Phone number has a character.
                 </div>
               </div>
             </div>

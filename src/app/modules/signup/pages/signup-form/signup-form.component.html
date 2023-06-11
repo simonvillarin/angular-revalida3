@@ -185,24 +185,70 @@
               <form [formGroup]="loginCredentialForm">
                 <!-- Email -->
                 <div class="row gx-5">
-                  <div class="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      class="form-control border-bottom"
-                      placeholder="email@example.com"
-                      formControlName="email"
-                      required
-                    />
-                    <mat-error
-                      *ngIf="
-                        loginCredentialForm.get('email')?.invalid &&
-                        loginCredentialForm.get('email')?.touched
-                      "
-                      >{{ getErrorMessage() }}</mat-error
-                    >
-                  </div>
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input
+                        type="email"
+                        class="form-control border-bottom"
+                        placeholder="email@example.com"
+                        formControlName="email"
+                        required
+                      />
+                      <mat-error
+                        *ngIf="
+                          loginCredentialForm.get('email')?.invalid &&
+                          loginCredentialForm.get('email')?.touched
+                        "
+                        >{{ getErrorMessage() }}</mat-error
+                      >
+                    </div>
                 </div>
+                <!-- PhoneNumber -->
+                <div class="row gx-5">
+                    <div class="form-group">
+                      <label>Cellphone Number</label>
+                      <input
+                        type="text"
+                        class="form-control border-bottom"
+                        placeholder="+639123456789 | 09123456789"
+                        formControlName="phoneNumber"
+                        required
+                      />
+                       <div
+                          class="validation"
+                          *ngIf="
+                            loginCredentialForm.get('phoneNumber')?.invalid &&
+                            loginCredentialForm.get('phoneNumber')?.dirty">
+                            <div
+                              *ngIf="
+                                loginCredentialForm
+                                  .get('phoneNumber')
+                                  ?.hasError('required')
+                              "
+                            >
+                              Phone Number is required.
+                            </div>
+                            <div
+                              *ngIf="
+                                loginCredentialForm
+                                  .get('phoneNumber')
+                                  ?.hasError('mobileNoIsValid')
+                              "
+                            >
+                              Phone Number unvalid.
+                            </div>
+                            <div
+                            *ngIf="
+                              loginCredentialForm
+                                .get('phoneNumber')
+                                ?.hasError('mobileNoHasNoLetters')
+                            "
+                          >
+                            Phone Number has a character.
+                          </div>
+                          </div>
+                        </div>
+                    </div>
                 <!-- Username -->
                 <div class="row gx-5">
                   <div class="form-group">

@@ -17,6 +17,8 @@ import {
   hasSymbolValidator,
   hasUppercaseValidator,
   maxLengthValidator,
+  mobileNumberContainLetters,
+  mobileNumberIsValid,
 } from 'src/app/modules/validators/custom.validator';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -69,6 +71,12 @@ export class SignupFormComponent {
 
     this.loginCredentialForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', 
+          [Validators.required,
+          mobileNumberContainLetters(),
+          mobileNumberIsValid()
+        ]
+      ],
       username: ['', Validators.required],
       password: [
         '',
@@ -200,6 +208,7 @@ export class SignupFormComponent {
       birthdate: this.personalInfoForm.value.birthdate,
       listOfInterest: this.interests,
       email: this.loginCredentialForm.value.email,
+      phoneNumber: this.loginCredentialForm.value.phoneNumber,
       username: this.loginCredentialForm.value.username,
       password: this.loginCredentialForm.value.password,
       role: 'USER',

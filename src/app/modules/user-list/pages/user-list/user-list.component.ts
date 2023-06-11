@@ -19,6 +19,8 @@ import {
   hasNumberValidator,
   hasSymbolValidator,
   hasUppercaseValidator,
+  mobileNumberContainLetters,
+  mobileNumberIsValid,
 } from 'src/app/modules/validators/custom.validator';
 import { User } from '../../models/user';
 import { UserListService } from '../../services/user-list.service';
@@ -87,7 +89,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
       middleName: [''],
       birthDate: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [
+          Validators.required,
+          mobileNumberContainLetters(),
+          mobileNumberIsValid(),
+        ]],
       userName: ['', [Validators.required]],
       password: [
         '',
