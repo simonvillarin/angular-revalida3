@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { hasLowercaseValidator, hasNumberValidator, hasSymbolValidator, hasUppercaseValidator } from 'src/app/modules/validators/custom.validator';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
-import { UserService } from 'src/app/shared/services/user/user.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -55,7 +55,6 @@ export class ChangePasswordComponent implements OnInit{
     }
 
     this.sub = this.userService.getUserById(this.userId).subscribe((user) => {
-
       this.loggedInUser.push(user);
       console.log(this.loggedInUser);
     })
@@ -80,9 +79,8 @@ export class ChangePasswordComponent implements OnInit{
       console.log(this.changePassForm.value.confirmPass);
       const user = this.changePassForm.getRawValue();
       if(this.changePassForm.value.newPass === this.changePassForm.value.confirmPass) {
-        this.userService.updateUser(this.userId, user).subscribe((res) => {
+        this.userService.updateUserPasword(this.userId, user).subscribe((res) => {
           console.log(res);
-          
         });
         alert(this.successMessage = 'Password successfuly changed');
         this.router.navigate(['profile'])
