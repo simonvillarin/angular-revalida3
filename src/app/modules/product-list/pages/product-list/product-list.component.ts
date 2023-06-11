@@ -158,7 +158,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
 
   onCategorySelect(event: Event) {
-    const selectedIndex = (event.target as HTMLSelectElement).selectedIndex;
+    const selectedIndex = (event.target as HTMLSelectElement).selectedIndex - 1;
     console.log('Selected index:', selectedIndex);
     this.selectedCategoryIndex = selectedIndex;
   }
@@ -181,7 +181,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   newBrand: string | undefined;
   showBrandModal: boolean = true;
   editedBrand: string | undefined;
-  selectedBrandIndex: number | null = null;
+  selectedBrandIndex: number | null = -1;
 
   addBrand() {
     console.log(this.newBrand);
@@ -195,7 +195,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   onBrandSelect(event: Event) {
-    const selectedIndex = (event.target as HTMLSelectElement).selectedIndex;
+    const selectedIndex = (event.target as HTMLSelectElement).selectedIndex - 1;
     console.log('Selected index:', selectedIndex);
     this.selectedBrandIndex = selectedIndex;
   }
@@ -209,31 +209,38 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
       this.editedBrand = selectedBrand.brand;
       this.newBrand = this.editedBrand;
-      this.selectedBrandIndex = null;
+      // this.selectedBrandIndex = null;
     }
     console.log(this.editedBrand);
   }
 
 
   updateBrand() {
+    console.log(this.selectedBrandIndex)
     if (this.selectedBrandIndex !== null) {
       const selectedIndex = this.selectedBrandIndex;
       const selectedBrand = this.brandOptions[selectedIndex];
-
+      console.log(selectedIndex, selectedBrand);
 
       const updatedBrand: Brand = {
         id: selectedBrand.id,
         brand: this.newBrand || ''
       };
-
-      this.http.get<Brand[]>('http://localhost:3000/brands?timestamp=' + Date.now())
-        .subscribe(() => {
-          this.newBrand = '';
-          this.selectedBrandIndex = null;
-          this.fetchBrandOptions(); // Update brandOptions after successful update
-        });
+  
+      const url = 'http://localhost:3000/brands/' + selectedBrand.id;
+  
+      this.http.put<Brand>(url, updatedBrand)
+        .subscribe(
+          (response: Brand) => {
+            console.log('Brand updated successfully:', response);
+            this.newBrand = '';
+            // this.selectedBrandIndex = null;
+            this.fetchBrandOptions(); // Update brandOptions after successful update
+          }
+        );
     }
   }
+  
 
 
   rowMatchesSearch = (row: any): boolean => {

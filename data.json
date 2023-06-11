@@ -1,0 +1,50 @@
+{
+  "brands": [
+    {
+      "id": 2,
+      "brand": "Dell"
+    },
+    {
+      "id": 3,
+      "brand": "Lenovo"
+    },
+    {
+      "id": 4,
+      "brand": "MSI"
+    },
+    {
+      "brand": "Real Me",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "brand": "Mi"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "category": "Desktop"
+    },
+    {
+      "id": 3,
+      "category": "Notebook"
+    },
+    {
+      "id": 4,
+      "category": "Components"
+    },
+    {
+      "id": 5,
+      "category": "Peripherals"
+    },
+    {
+      "category": "Accessories",
+      "id": 2
+    },
+    {
+      "category": "Memory",
+      "id": 6
+    }
+  ]
+}

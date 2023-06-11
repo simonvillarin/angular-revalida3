@@ -56,44 +56,44 @@
               </div>
             </div>
             <div class="group">
-              <label for="brand">Brand</label>
-              <!-- (change)="onBrandSelected($event)" -->
-              <select
-                class="form-select"
-                id="brand"
-                aria-label="Brand"
-                formControlName="brand"
-                [value]="buttonAction"
-                (change)="onBrandSelect($event)"
-              >
-                <option hidden>Select Brand</option>
-                <option *ngFor="let option of brandOptions" [value]="option.brand">
-                  {{ option.brand }}
-                </option>
-              </select>
-               <button
-                   type="button"
-                  class="add"
-                  data-bs-toggle="modal"
-                  data-bs-target="#brandModal"
+                <label for="brand">Brand</label>
+                <!-- (change)="onBrandSelected($event)" -->
+                <select
+                    (change)="onBrandSelect($event)"
+                    class="form-select"
+                    id="brand"
+                    aria-label="Category"
+                    formControlName="brand"
+                    [value]="buttonAction"
                 >
-                 Add
-               </button>
-               <button type="button" class="add" 
-                        data-bs-toggle="modal" data-bs-target="#editBrandModal"  
-                        (click)="editBrand()"
-                        [disabled]="selectedBrandIndex === null">
-                Edit
-              </button>
+                  <option hidden>Select Brand</option>
+                  <option *ngFor="let brand of brandOptions" [value]="brand.brand">
+                    {{ brand.brand }}
+                  </option>
+                </select>
+                <button
+                    type="button"
+                    class="add"
+                    data-bs-toggle="modal"
+                    data-bs-target="#brandModal"
+                  >
+                  Add
+                </button>
+                <button type="button" class="add" 
+                          data-bs-toggle="modal" data-bs-target="#editBrandModal"  
+                          (click)="editBrand()"
+                          [disabled]="selectedBrandIndex === null">
+                  Edit
+                </button>
               
-               <button
-                   type="button"
-                  class="add"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteBrand"
-                >
-                 Delete
-               </button>
+                <button
+                    type="button"
+                    class="add"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteBrand"
+                  >
+                  Delete
+                </button>
 
               <div
                 class="validation"
@@ -104,7 +104,7 @@
                 "
               >
                 <div *ngIf="productForm.get('brand')?.hasError('required')">
-                  Brand is Required
+                  Brand is Required 
                 </div>
               </div>
             </div>
