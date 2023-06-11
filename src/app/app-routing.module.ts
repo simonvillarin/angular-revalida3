@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { userExistsGuard } from './core/guards/user-exists/user-exists.guard';
 import { userNotFoundGuard } from './core/guards/user-not-found/user-not-found.guard';
+import { ErrorPagesModule } from './error-pages/error-pages.module';
+import { Error404PageComponent } from './error-pages/error404-page/error404-page.component';
 
 const routes: Routes = [
   {
@@ -121,11 +123,19 @@ const routes: Routes = [
       import('./modules/forgot-password/forgot-password.module').then(
         (m) => m.ForgotPasswordModule
       ),
+  },
+  {
+    path: '**',
+    redirectTo: '404'
+  },
+  {
+    path: '404',
+    component: Error404PageComponent,
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), ErrorPagesModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
